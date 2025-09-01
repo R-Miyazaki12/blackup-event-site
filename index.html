@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black UP - The Ultimate Black Camp Event</title>
+    <style>
+        :root {
+            --color-background: #121212;
+            --color-text: #E0E0E0;
+            --color-primary: #FFA726; /* 焚き火のオレンジ */
+            --color-secondary: #424242;
+            --font-family-base: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+            --font-family-heading: 'Georgia', 'Times New Roman', 'serif';
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: var(--font-family-base);
+            margin: 0;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        h1, h2, h3 {
+            font-family: var(--font-family-heading);
+            color: white;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        h3 {
+            font-size: 1.75rem;
+            color: var(--color-primary);
+            border-bottom: 1px solid var(--color-secondary);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+        }
+        p { max-width: 800px; margin-left: auto; margin-right: auto; }
+        a { color: var(--color-primary); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: white; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+        section { border-bottom: 1px solid var(--color-secondary); }
+        section:last-of-type { border-bottom: none; }
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background 0.3s ease;
+        }
+        .logo { font-family: var(--font-family-heading); font-size: 1.5rem; color: white; font-weight: bold; }
+        .nav-links a { margin: 0 1rem; font-size: 1rem; font-weight: bold; }
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=2070&auto=format&fit=crop);
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 1rem;
+        }
+        .hero h1 { font-size: 5rem; margin: 0; color: white; text-shadow: 0 0 20px rgba(0,0,0,0.7); }
+        .hero .subtitle { font-size: 1.5rem; margin-top: 1rem; color: var(--color-primary); letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .btn {
+            display: inline-block; background: var(--color-primary); color: var(--color-background);
+            padding: 1rem 3rem; border-radius: 50px; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px; margin-top: 2rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: none; cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-5px); background-color: white; color: black; }
+        .timeline {
+            position: relative; max-width: 800px; margin: 4rem auto; padding: 2rem 0;
+        }
+        .timeline::before { content: ''; position: absolute; top: 0; left: 20px; height: 100%; width: 2px; background: var(--color-secondary); }
+        .timeline-item { margin-bottom: 2rem; position: relative; padding-left: 60px; }
+        .timeline-item::before { content: ''; position: absolute; left: 12px; top: 5px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-primary); border: 2px solid var(--color-background); z-index: 1; }
+        .timeline-time { font-weight: bold; color: var(--color-primary); }
+        .overview-table { width: 100%; max-width: 800px; margin: 3rem auto; border-collapse: collapse; }
+        .overview-table th, .overview-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-secondary); }
+        .overview-table th { width: 30%; color: var(--color-primary); }
+        .faq-item { margin-bottom: 1.5rem; }
+        .faq-item summary { font-size: 1.2rem; font-weight: bold; cursor: pointer; outline: none; padding: 0.5rem 0; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::before { content: '+ '; color: var(--color-primary); font-weight: bold; }
+        .faq-item[open] summary::before { content: '− '; }
+        .faq-item p { padding: 1rem 0 0 1.5rem; border-left: 2px solid var(--color-secondary); margin-top: 0.5rem; }
+        .map-container { position: relative; overflow: hidden; padding-top: 56.25%; margin-top: 3rem; }
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .video-item {
+            position: relative;
+            padding-top: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .video-item iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .main-footer { background: #000; text-align: center; padding: 4rem 1rem; color: var(--color-secondary); }
+        .main-footer .logo { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .social-links {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        .social-links a { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-text); transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--color-primary); }
+        .social-links svg { width: 24px; height: 24px; fill: currentColor; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem !important; }
+            h2 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .container { padding: 4rem 1rem; }
+            .video-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">Black UP</div>
+        <nav class="nav-links">
+            <a href="#about">コンセプト</a>
+            <a href="#activity">アクティビティ</a>
+            <a href="#videos">動画</a>
+            <a href="#overview">開催概要</a>
+            <a href="#ticket">申し込み</a>
+            <a href="#faq">よくある質問</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Black UP</h1>
+            <p class="subtitle">黒を纏い、夜を灯せ。</p>
+            <a href="#ticket" class="btn">イベントに申し込む</a>
+        </section>
+        <section id="about" class="container">
+            <h2 class="fade-in">コンセプト</h2>
+            <p class="fade-in">
+                「Black UP」は、黒をテーマにしたキャンプスタイル "ブラックキャンプ" を愛する人、そしてこれから始めてみたい人が集うための特別なイベントです。
+                自慢の黒いギアを持ち寄るだけでなく、これからブラックキャンプの世界に足を踏み入れたいという初心者の方も大歓迎。
+                単なるキャンプイベントではなく、同じ趣味を持つ仲間と出会い、語り合い、新たな発見が生まれる交流の場を目指しています。
+                静寂の夜、黒に染まるサイトで、特別な時間を共に過ごしませんか。
+            </p>
+        </section>
+        <section id="activity" class="container">
+            <h2 class="fade-in">アクティビティ</h2>
+            <p class="fade-in" style="text-align: center; margin-bottom: 3rem;">当日は参加者全員で楽しめる様々なアクティビティを企画しています。</p>
+            <h3 class="fade-in">タイムスケジュール</h3>
+            <div class="timeline">
+                <div class="timeline-item fade-in"><div class="timeline-time">1日目 - 13:00</div><div class="timeline-content">受付開始 / テント設営</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">1日目 - 15:00</div><div class="timeline-content">開会式 & 交流タイム</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">1日目 - 17:00</div><div class="timeline-content">ブラックキャンプ飯作り</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">1日目 - 19:00</div><div class="timeline-content">焚き火トーク & ギア談義</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">2日目 - 08:00</div><div class="timeline-content">朝食 & コーヒータイム</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">2日目 - 11:00</div><div class="timeline-content">閉会式 & 集合写真</div></div>
+                <div class="timeline-item fade-in"><div class="timeline-time">2日目 - 12:00</div><div class="timeline-content">解散</div></div>
+            </div>
+        </section>
+        <section id="videos" class="container">
+            <h2 class="fade-in">最新の動画</h2>
+            <p class="fade-in" style="text-align: center;">
+                私たちの活動を動画でご覧ください。
+            </p>
+            <div class="video-grid fade-in">
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+        <section id="overview" class="container">
+            <h2 class="fade-in">開催概要</h2>
+            <table class="overview-table fade-in">
+                <tbody>
+                    <tr><th>日時</th><td>2025年10月25日(土) 13:00 〜 26日(日) 12:00</td></tr>
+                    <tr><th>場所</th><td>つどいの館キャンプ場 (北海道登別市札内町342-2)</td></tr>
+                    <tr><th>参加費</th><td>ソロ参加: 8,000円<br>デュオ参加: 15,000円<br><small>※料金に含まれるもの: サイト利用料、夕食BBQ、記念品</small></td></tr>
+                    <tr><th>持ち物</th><td>キャンプに必要な基本道具一式 (テント、寝袋など)、食器類、防寒着、楽しむ気持ち！</td></tr>
+                    <tr><th>雨天時</th><td>雨天決行。荒天により中止の場合は、イベント前日の正午までにメールおよび公式サイトにてお知らせします。</td></tr>
+                </tbody>
+            </table>
+            <div class="map-container fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.551581819207!2d141.1360013154658!3d42.4583899791804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f74dfa7c57a4f6b%3A0x45bba96979de62fa!2z44Gk44Gp44GE44Gu6aSo44Kt44Oz44OX44K_!5e0!3m2!1sja!2sjp!4v1662354989563!5m2!1sja!2sjp" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+        <section id="ticket" class="container" style="text-align: center;">
+            <h2 class="fade-in">申し込み</h2>
+            <p class="fade-in">以下のボタンより申し込みページへお進みください。<br>皆様のご参加を心よりお待ちしております。</p>
+            <a href="#" class="btn fade-in">申し込みフォームへ (準備中)</a>
+        </section>
+        <section id="faq" class="container">
+            <h2 class="fade-in">よくある質問</h2>
+            <div class="fade-in">
+                <details class="faq-item"><summary>黒い道具を持っていないと参加できませんか？</summary><p>いいえ、そんなことはありません！ブラックキャンプに興味がある方ならどなたでも大歓迎です。これから道具を揃えたいという方の情報交換の場としてもご活用ください。</p></details>
+                <details class="faq-item"><summary>レンタル品はありますか？</summary><p>テントや寝袋などの基本的なキャンプ用品のレンタル（有料）をご用意する予定です。数に限りがありますので、ご希望の方はお早めにお申し込みください。詳細は申し込みページにてご案内します。</p></details>
+                <details class="faq-item"><summary>初心者でも参加できますか？</summary><p>はい、もちろんです。運営スタッフがサポートしますので、キャンプ初心者の方でも安心してご参加いただけます。</p></details>
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <div class="logo">Black UP</div>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@RLifeCamp/videos" target="_blank" rel="noopener noreferrer" title="YouTube"><svg viewBox="0 0 24 24"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.25,4,12,4,12,4S5.75,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.75,2,12,2,12s0,4.25,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.75,20,12,20,12,20s6.25,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.25,22,12,22,12S22,7.75,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg></a>
+            <a href="https://www.instagram.com/r.life_camp/" target="_blank" rel="noopener noreferrer" title="R-Life Camp Instagram"><svg viewBox="0 0 24 24"><path d="M12,2.163c3.204,0,3.584,0.012,4.85,0.07c1.269,0.058,2.164,0.248,2.943,0.556c0.875,0.328,1.6,0.778,2.322,1.5 c0.721,0.721,1.171,1.448,1.5,2.322c0.308,0.779,0.498,1.674,0.556,2.943C21.988,8.416,22,8.796,22,12s-0.012,3.584-0.07,4.85 c-0.058,1.269-0.248,2.164-0.556,2.943c-0.328,0.875-0.778,1.6-1.5,2.322c-0.721-0.721-1.448,1.171-2.322,1.5 c-0.779,0.308-1.674,0.498-2.943,0.556C15.584,21.988,15.204,22,12,22s-3.584-0.012-4.85-0.07 c-1.269-0.058-2.164-0.248-2.943-0.556c-0.875-0.328-1.6-0.778-2.322-1.5c-0.721-0.721-1.171-1.448-1.5-2.322 c-0.308-0.779-0.498-1.674-0.556-2.943C2.012,15.584,2,15.204,2,12s0.012-3.584,0.07-4.85c0.058-1.269,0.248-2.164,0.556-2.943 c0.328-0.875,0.778-1.6,1.5-2.322c0.721-0.721,1.448-1.171,2.322-1.5C6.416,2.411,7.311,2.221,8.58,2.163C9.846,2.101,10.226,2.089,12,2.089 M12,0C8.741,0,8.333,0.014,7.053,0.072C5.774,0.13,4.905,0.333,4.14,0.631C3.377,0.929,2.707,1.398,2.037,2.068 c-0.67,0.67-1.139,1.34-1.438,2.103C0.333,4.905,0.13,5.774,0.072,7.053C0.014,8.333,0,8.741,0,12c0,3.259,0.014,3.667,0.072,4.947 c0.06,1.279,0.262,2.148,0.56,2.912c0.298,0.764,0.767,1.434,1.438,2.104c0.67,0.67,1.34,1.139,2.103,1.438 c0.764,0.298,1.633,0.499,2.912,0.56C8.333,23.986,8.741,24,12,24s3.667-0.014,4.947-0.072c1.279-0.06,2.148-0.262,2.912-0.56 c0.764-0.298,1.434-0.767,2.104-1.438c0.67-0.67,1.139-1.34,1.438-2.104c0.298-0.764,0.499-1.633,0.56-2.912 C23.986,15.667,24,15.259,24,12s-0.014-3.667-0.072-4.947c-0.06-1.279-0.262-2.148-0.56-2.912c-0.298-0.764-0.767-1.434-1.438-2.104 c-0.67-0.67-1.34-1.139-2.104-1.438c-0.764-0.298-1.633-0.499-2.912-0.56C15.667,0.014,15.259,0,12,0L12,0z M12,5.838 c-3.403,0-6.162,2.759-6.162,6.162s2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162S15.403,5.838,12,5.838z M12,16.162 c-2.294,0-4.162-1.868-4.162-4.162s1.868-4.162,4.162-4.162s4.162,1.868,4.162,4.162S14.294,16.162,12,16.162z M18.402,6.419 c-0.781,0-1.414,0.633-1.414,1.414s0.633,1.414,1.414,1.414s1.414-0.633,1.414-1.414S19.183,6.419,18.402,6.419z"/></svg></a>
+            <a href="https://www.instagram.com/black_up.rlc/" target="_blank" rel="noopener noreferrer" title="Black UP Instagram"><svg viewBox="0 0 24 24"><path d="M12,2.163c3.204,0,3.584,0.012,4.85,0.07c1.269,0.058,2.164,0.248,2.943,0.556c0.875,0.328,1.6,0.778,2.322,1.5 c0.721,0.721,1.171,1.448,1.5,2.322c0.308,0.779,0.498,1.674,0.556,2.943C21.988,8.416,22,8.796,22,12s-0.012,3.584-0.07,4.85 c-0.058,1.269-0.248,2.164-0.556,2.943c-0.328,0.875-0.778,1.6-1.5,2.322c-0.721-0.721-1.448,1.171-2.322,1.5 c-0.779,0.308-1.674,0.498-2.943,0.556C15.584,21.988,15.204,22,12,22s-3.584-0.012-4.85-0.07 c-1.269-0.058-2.164-0.248-2.943-0.556c-0.875-0.328-1.6-0.778-2.322-1.5c-0.721-0.721-1.171-1.448-1.5-2.322 c-0.308-0.779-0.498-1.674-0.556-2.943C2.012,15.584,2,15.204,2,12s0.012-3.584,0.07-4.85c0.058-1.269,0.248-2.164,0.556-2.943 c0.328-0.875,0.778-1.6,1.5-2.322c0.721-0.721,1.448-1.171,2.322-1.5C6.416,2.411,7.311,2.221,8.58,2.163C9.846,2.101,10.226,2.089,12,2.089 M12,0C8.741,0,8.333,0.014,7.053,0.072C5.774,0.13,4.905,0.333,4.14,0.631C3.377,0.929,2.707,1.398,2.037,2.068 c-0.67,0.67-1.139,1.34-1.438,2.103C0.333,4.905,0.13,5.774,0.072,7.053C0.014,8.333,0,8.741,0,12c0,3.259,0.014,3.667,0.072,4.947 c0.06,1.279,0.262,2.148,0.56,2.912c0.298,0.764,0.767,1.434,1.438,2.104c0.67,0.67,1.34,1.139,2.103,1.438 c0.764,0.298,1.633,0.499,2.912,0.56C8.333,23.986,8.741,24,12,24s3.667-0.014,4.947-0.072c1.279-0.06,2.148-0.262,2.912-0.56 c0.764-0.298,1.434-0.767,2.104-1.438c0.67-0.67,1.139-1.34,1.438-2.104c0.298-0.764,0.499-1.633,0.56-2.912 C23.986,15.667,24,15.259,24,12s-0.014-3.667-0.072-4.947c-0.06-1.279-0.262-2.148-0.56-2.912c-0.298-0.764-0.767-1.434-1.438-2.104 c-0.67-0.67-1.34-1.139-2.104-1.438c-0.764-0.298-1.633-0.499-2.912-0.56C15.667,0.014,15.259,0,12,0L12,0z M12,5.838 c-3.403,0-6.162,2.759-6.162,6.162s2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162S15.403,5.838,12,5.838z M12,16.162 c-2.294,0-4.162-1.868-4.162-4.162s1.868-4.162,4.162-4.162s4.162,1.868,4.162,4.162S14.294,16.162,12,16.162z M18.402,6.419 c-0.781,0-1.414,0.633-1.414,1.414s0.633,1.414,1.414,1.414s1.414-0.633,1.414-1.414S19.183,6.419,18.402,6.419z"/></svg></a>
+        </div>
+        <p>&copy; 2025 Black UP Event. All Rights Reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeInElements.forEach(el => { observer.observe(el); });
+        });
+    </script>
+</body>
+</html>
